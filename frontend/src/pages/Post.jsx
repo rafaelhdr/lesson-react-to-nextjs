@@ -34,7 +34,9 @@ function Post() {
       <Link to="/blog">← Back to Blog</Link>
       <h1>{post.title}</h1>
       <small>{post.date}</small>
-      <p>{post.content}</p>
+      {post.content.split('\n\n').map((paragraph, i) => (
+        <p key={i}>{paragraph}</p>
+      ))}
     </div>
   )
 }

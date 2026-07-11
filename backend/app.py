@@ -7,6 +7,28 @@ CORS(app)
 
 posts = [
     {
+        "id": 6,
+        "slug": "migrating-react-to-nextjs",
+        "title": "Migrating from React Vite to Next.js",
+        "summary": "Our blog is currently a pure React app. Here is how we plan to move it to Next.js.",
+        "content": """Right now this blog is a pure React app built with Vite. It runs entirely in the browser — there is no server rendering, no file-based routing, and no built-in API layer. Our goal is to migrate it to Next.js.
+
+This is a good learning exercise because Next.js adds a lot of structure on top of plain React. Here are some things to think about as you attempt the migration:
+
+Packages to install: you will need to install next and can remove vite, @vitejs/plugin-react, and the vite.config.js file. Your package.json scripts will also change — instead of "vite" you will run "next dev".
+
+Files to touch: Next.js uses a file-based router. Each file inside the app/ folder becomes a route. You will need to create app/page.jsx for the home page, app/blog/page.jsx for the post list, and app/blog/[slug]/page.jsx for individual posts.
+
+The entry point changes too. Next.js does not have an index.html or main.jsx. The app/layout.jsx file is where you put your global HTML shell and navigation.
+
+Important: for now, mark every component with "use client" at the top of the file. This keeps the behaviour identical to what we have today — everything runs in the browser. Do not use server components yet.
+
+Questions to think about:
+1. Does it have server components?
+2. Should we convert to use server components?""",
+        "date": "2024-06-15",
+    },
+    {
         "id": 1,
         "slug": "getting-started-with-python",
         "title": "Getting Started with Python",
