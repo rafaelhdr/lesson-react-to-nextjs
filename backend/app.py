@@ -7,6 +7,41 @@ CORS(app)
 
 posts = [
     {
+        "id": 12,
+        "slug": "deploying-to-production",
+        "title": "Deploying to Production",
+        "summary": "How to build and run both the Flask backend and the Next.js frontend for production.",
+        "content": """Running the app with npm run dev and python app.py is fine for development, but neither is meant for production. Here is how to run both properly.
+
+For the frontend, run npm run build inside the frontend folder. Next.js compiles and optimises all pages into the .next folder. Once that is done, run npm start. That starts the Next.js production server, which serves the built output. It handles routing, server components, and image optimisation the same way as dev, but faster and without the hot-reload overhead. By default it listens on port 3000.
+
+For the backend, Flask's built-in server is also not production-ready. The standard replacement is gunicorn. Install it with pip install gunicorn, then run gunicorn app:app from inside the backend folder. This starts a proper WSGI server. You can control the number of worker processes with the -w flag, for example gunicorn -w 4 app:app to run four workers.
+
+In a real deployment both processes would be kept alive by a process manager like systemd or supervisord, and a reverse proxy like nginx would sit in front of them to handle HTTPS and route traffic to the right port.""",
+        "date": "2024-11-01",
+    },
+    {
+        "id": 11,
+        "slug": "image-optimization-done",
+        "title": "Image Optimization with next/image",
+        "summary": "We replaced the raw img tag on the home page with Next.js Image component. Here is what changed and why it matters.",
+        "content": """The home page had a raw img tag loading hello.jpg. The original file is 5784x3856 pixels and around 600KB. Every visitor was downloading that full file regardless of the screen size they were on.
+
+We replaced it with the Image component from next/image. The import is: import Image from 'next/image'
+
+The component takes width and height matching the original image dimensions. These are not the rendered size — they tell Next.js the aspect ratio so it can generate correctly proportioned variants. To make it fill the container width we added style with width 100% and height auto, the same way you would with a regular img tag.
+
+We also added the priority prop. By default Next.js lazy-loads images, which is great for images below the fold. But this image is at the top of the home page — it is visible immediately. The priority prop tells Next.js to preload it so there is no delay on first paint.
+
+What Next.js now does automatically: when a browser requests the page, Next.js checks what size and format to serve. A modern browser on a narrow screen gets a small WebP file. A browser that does not support WebP gets a JPEG. The original file in public/ is never sent directly.
+
+The home page component also lost its "use client" directive. Since the Image component works fine on the server and there is no useState or useEffect in this file, there was no reason to keep it as a client component.
+
+Demo: Let's see it running with throttling for bad 3G
+""",
+        "date": "2024-10-15",
+    },
+    {
         "id": 10,
         "slug": "optimizing-images-with-nextjs",
         "title": "Optimizing Images with Next.js",
