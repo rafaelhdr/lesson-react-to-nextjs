@@ -1,0 +1,14 @@
+body {
+  font-family: sans-serif;
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 0 16px;
+}
+
+nav {
+  margin-bottom: 24px;
+}
+
+a {
+  color: #0066cc;
+}
