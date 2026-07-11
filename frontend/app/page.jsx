@@ -4,6 +4,7 @@ export default function Home() {
   return (
     <div>
       <h1>Welcome to Four Devs Blog</h1>
+      <img src="/hello.jpg" alt="Hello" style={{ width: '100%' }} />
       <p>
         This is a learning project to explore web development. Here you will find
         articles about Python, React, REST APIs, CSS, and Git — written for

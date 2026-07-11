@@ -7,6 +7,53 @@ CORS(app)
 
 posts = [
     {
+        "id": 10,
+        "slug": "optimizing-images-with-nextjs",
+        "title": "Optimizing Images with Next.js",
+        "summary": "The home page has a raw img tag. Here is why that is a problem and how Next.js solves it.",
+        "content": """The home page currently has a plain HTML img tag pointing to hello.jpg. This works, but the browser downloads the full original file every time — no resizing, no compression, no modern format. On a slow connection or a large image this adds up quickly.
+
+Next.js ships a built-in Image component that handles this automatically. Import it with: import Image from 'next/image'
+
+The component replaces the raw img tag. Instead of src="/hello.jpg" on a plain img, you write the Image component with three required props: src, alt, and a size. You can provide the size either as width and height in pixels, or by adding the fill prop if you want the image to stretch inside a positioned container.
+
+What Next.js does behind the scenes: it resizes the image to the exact dimensions requested, converts it to a modern format like WebP or AVIF if the browser supports it, and serves the result from a built-in image endpoint. The original file in public/ is never sent to the browser directly.
+
+It also adds lazy loading by default, meaning the image is only downloaded when it is about to enter the viewport. For images that are immediately visible on page load, you can add the priority prop to tell Next.js to preload it instead.
+
+One thing to keep in mind: because Next.js generates the optimized versions on demand, the first request for each size is slightly slower. After that the result is cached and served instantly.
+
+To do the optimization, the steps are: remove the raw img tag from app/page.jsx, import Image from next/image, and replace it with the Image component passing src, alt, width, and height.""",
+        "date": "2024-10-01",
+    },
+    {
+        "id": 9,
+        "slug": "server-components-in-action",
+        "title": "Server Components in Action",
+        "summary": "We converted the blog list and post pages to server components. Here is exactly what changed.",
+        "content": """We just converted app/blog/page.jsx and app/blog/[slug]/page.jsx to server components. The home page was left alone since it has no data fetching.
+
+The first change was removing "use client" from both files. That single line is all that was needed to opt into server components — Next.js treats any component without it as a server component by default.
+
+Both functions became async. This allows using await directly inside the component, which removes the need for useState and useEffect entirely. The fetch call now happens before the component returns its JSX, so the data is always ready when the HTML is generated.
+
+For the blog list page, the current page number used to come from useState. Now it comes from the searchParams prop that Next.js passes automatically to page components. In Next.js 15 and above, searchParams is a Promise, so it needs to be awaited before reading from it.
+
+The pagination buttons were replaced with Link components. Previous and Next are now just links pointing to ?page=2, ?page=3, and so on. This means no onClick handlers, no state — just plain navigation. Server components cannot have event handlers, so this change was necessary, and it turned out to be simpler anyway.
+
+For the post page, the slug used to come from useParams. Now it comes from the params prop, also a Promise in Next.js 15 that needs to be awaited. The entire useEffect, useState, and error state were removed. Checking res.ok after the fetch and returning early is enough to handle a missing post.
+
+The imports got much shorter. Both files now only import Link from next/link. No useState, no useEffect, no useParams.
+
+Questions to think about:
+
+1. Can we use server component with static website?
+
+2. Do server components expose the webpage secrets?
+""",
+        "date": "2024-09-10",
+    },
+    {
         "id": 8,
         "slug": "adding-server-components-to-blog",
         "title": "Using Server Components for Blog Pages",

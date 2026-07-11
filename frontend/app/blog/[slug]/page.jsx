@@ -1,36 +1,14 @@
-'use client'
-
-import { useState, useEffect } from 'react'
-import { useParams } from 'next/navigation'
 import Link from 'next/link'
 
 const API = 'http://localhost:5000'
 
-export default function Post() {
-  const { slug } = useParams()
-  const [post, setPost] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+export default async function Post({ params }) {
+  const { slug } = await params
+  const res = await fetch(`${API}/api/posts/${slug}`)
 
-  useEffect(() => {
-    setLoading(true)
-    fetch(`${API}/api/posts/${slug}`)
-      .then((res) => {
-        if (!res.ok) throw new Error('Post not found')
-        return res.json()
-      })
-      .then((data) => {
-        setPost(data)
-        setLoading(false)
-      })
-      .catch((err) => {
-        setError(err.message)
-        setLoading(false)
-      })
-  }, [slug])
+  if (!res.ok) return <p>Post not found</p>
 
-  if (loading) return <p>Loading...</p>
-  if (error) return <p>{error}</p>
+  const post = await res.json()
 
   return (
     <div>
