@@ -1,4 +1,6 @@
-function Home() {
+'use client'
+
+export default function Home() {
   return (
     <div>
       <h1>Welcome to Four Devs Blog</h1>
@@ -10,5 +12,3 @@ function Home() {
     </div>
   )
 }
-
-export default Home

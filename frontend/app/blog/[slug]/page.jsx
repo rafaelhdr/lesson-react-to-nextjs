@@ -1,9 +1,12 @@
+'use client'
+
 import { useState, useEffect } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams } from 'next/navigation'
+import Link from 'next/link'
 
 const API = 'http://localhost:5000'
 
-function Post() {
+export default function Post() {
   const { slug } = useParams()
   const [post, setPost] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -31,7 +34,7 @@ function Post() {
 
   return (
     <div>
-      <Link to="/blog">← Back to Blog</Link>
+      <Link href="/blog">← Back to Blog</Link>
       <h1>{post.title}</h1>
       <small>{post.date}</small>
       {post.content.split('\n\n').map((paragraph, i) => (
@@ -40,5 +43,3 @@ function Post() {
     </div>
   )
 }
-
-export default Post

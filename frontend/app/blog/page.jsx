@@ -1,10 +1,12 @@
+'use client'
+
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 
 const API = 'http://localhost:5000'
 const PER_PAGE = 2
 
-function Blog() {
+export default function Blog() {
   const [posts, setPosts] = useState([])
   const [page, setPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
@@ -32,7 +34,7 @@ function Blog() {
           {posts.map((post) => (
             <div key={post.id}>
               <h2>
-                <Link to={`/blog/${post.slug}`}>{post.title}</Link>
+                <Link href={`/blog/${post.slug}`}>{post.title}</Link>
               </h2>
               <p>{post.summary}</p>
               <small>{post.date}</small>
@@ -54,5 +56,3 @@ function Blog() {
     </div>
   )
 }
-
-export default Blog
