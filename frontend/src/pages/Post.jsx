@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 
-const API = 'http://localhost:5000'
+const API = 'http://localhost:6000'
 
 function Post() {
   const { slug } = useParams()
