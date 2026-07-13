@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-const API = 'http://localhost:6000'
+const API = 'http://localhost:8080'
 const PER_PAGE = 2
 
 function Blog() {
